@@ -1,5 +1,5 @@
 import { z } from "zod";
-import { LebensmittelProGerichtArraySchema } from "./lebensmittelProGerichtSchema";
+import { LebensmittelProGerichtArraySchema } from "./lebensmittelProGericht";
 
 export const Tageszeit = ["Morgen", "Vormittag", "Mittag", "Nachmittag", "früher Abend", "Abend", "Nacht"] as const;
 
