@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { LebensmittelProGerichtArraySchema } from "./lebensmittelProGericht";
 
-export const Tageszeit = ["Morgen", "Vormittag", "Mittag", "Nachmittag", "früher Abend", "Abend", "Nacht"] as const;
+export const Tageszeit = ["Morgen", "Vormittag", "Mittag", "Nachmittag", "früher Abend", "Abend", "Nacht", "k.A."] as const;
 
 export type Tageszeit = (typeof Tageszeit)[number];
 
@@ -9,14 +9,14 @@ export const GerichtSchema = z.object({
   id: z.string(),
   name: z.string().min(1, "Name is required"),
   tageszeit: z.enum(Tageszeit),
-  lebensmittelProGerichtSchema: z.array(LebensmittelProGerichtArraySchema).default([]),
+  lebensmittelProGericht: z.array(LebensmittelProGerichtArraySchema).default([]),
   createdAt: z.date(),
   updatedAt: z.date(),
 });
 
-export type GerichtSchema = z.infer<typeof GerichtSchema>;
+export type Gericht = z.infer<typeof GerichtSchema>;
 
 export const NewGerichtSchema = GerichtSchema.omit({ id: true, createdAt: true, updatedAt: true });
-export type NewGerichtSchema = z.infer<typeof NewGerichtSchema>;
+export type NewGericht = z.infer<typeof NewGerichtSchema>;
 
-export type UpdateGerichtSchema = Partial<Pick<GerichtSchema, "name" | "createdAt" | "updatedAt">>;
+export type UpdateGericht = Partial<Pick<Gericht, "name" | "createdAt" | "updatedAt">>;
