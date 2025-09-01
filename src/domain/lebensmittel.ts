@@ -18,7 +18,14 @@ export const LebensmittelSchema = z.object({
 
 export type Lebensmittel = z.infer<typeof LebensmittelSchema>;
 
-export const NewLebensmittelSchema = LebensmittelSchema.omit({ id: true, createdAt: true, updatedAt: true });
+export const NewLebensmittelSchema = LebensmittelSchema.omit({
+  id: true,
+  createdAt: true,
+  updatedAt: true,
+});
 export type NewLebensmittel = z.infer<typeof NewLebensmittelSchema>;
 
-export type UpdateLebensmittel = Partial<Pick<Lebensmittel, "name" | "createdAt" | "updatedAt">>;
+export type UpdateLebensmittel = Partial<
+  Pick<Lebensmittel, "name" | "createdAt" | "updatedAt">
+>;
+

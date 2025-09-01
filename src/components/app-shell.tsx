@@ -12,7 +12,6 @@ interface AppShellProps {
 export default function AppShell({ children, logo }: AppShellProps) {
   const [open, setOpen] = useState(false);
 
-  // Schließt das Mobile-Menu bei Navigation
   function handleNav() {
     setOpen(false);
   }
@@ -22,8 +21,8 @@ export default function AppShell({ children, logo }: AppShellProps) {
       <Link href="/" onClick={handleNav} className="flex items-center gap-2 rounded px-3 py-2 hover:bg-muted">
         <Home className="h-5 w-5" /> <span>Dashboard</span>
       </Link>
-      <Link href="/profile" onClick={handleNav} className="flex items-center gap-2 rounded px-3 py-2 hover:bg-muted">
-        <User className="h-5 w-5" /> <span>Profil</span>
+      <Link href="/lebensmittel" onClick={handleNav} className="flex items-center gap-2 rounded px-3 py-2 hover:bg-muted">
+        <User className="h-5 w-5" /> <span>Lebensmittel</span>
       </Link>
     </nav>
   );
@@ -44,7 +43,7 @@ export default function AppShell({ children, logo }: AppShellProps) {
             {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
           </button>
           {/* Logo */}
-          <div className="font-bold leading-none">{logo ?? <span>🚀 MyApp</span>}</div>
+          <div className="font-bold leading-none">{logo ?? <span>VenterVeritas</span>}</div>
         </div>
 
         {/* Right actions */}
