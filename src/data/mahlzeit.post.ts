@@ -9,29 +9,29 @@ import {
   FirestoreDataConverter,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
-import { Gericht, GerichtSchema } from "@/domain/gericht";
+import { Gericht, GerichtArraySchema } from "@/domain/gericht";
 import { Timestamp } from "firebase/firestore";
 import { WithFieldValue } from "firebase-admin/firestore";
-import { LebensmittelProGerichtArraySchema } from "@/domain/lebensmittelProGericht";
 import {
   Mahlzeit,
   MahlzeitSchema,
   NewMahlzeit,
   UpdateMahlzeit,
 } from "@/domain/mahlzeit";
+import { LebensmittelArraySchema } from "@/domain/lebensmittel";
 
-const mahlzeitCol = collection(db, "gerichte");
+const mahlzeitCol = collection(db, "mahlzeiten");
 
 const MahlzeitConverter: FirestoreDataConverter<Mahlzeit> = {
   toFirestore(mahlzeit: Mahlzeit) {
     return {
       id: mahlzeit.id,
       tageszeit: mahlzeit.tageszeit,
-      gericht: (mahlzeit.gericht ?? []).map((item: unknown) =>
-        GerichtSchema.parse(item),
+      mengeProGericht: (mahlzeit.mengeProGericht ?? []).map((item: unknown) =>
+        GerichtArraySchema.parse(item),
       ),
-      lebensmittelProGericht: (mahlzeit.lebensmittel ?? []).map((item: unknown) =>
-        LebensmittelProGerichtArraySchema.parse(item),
+      mengeProLebensmittel: (mahlzeit.mengeProLebensmittel ?? []).map((item: unknown) =>
+        LebensmittelArraySchema.parse(item),
       ),
       createdAt: Timestamp.fromDate(mahlzeit.createdAt),
       updatedAt: Timestamp.fromDate(mahlzeit.updatedAt),
@@ -42,11 +42,11 @@ const MahlzeitConverter: FirestoreDataConverter<Mahlzeit> = {
     const obj = {
       id: snapshot.id,
       tageszeit: data.tageszeit ?? "k.A.",
-      gericht: (data?.gericht ?? []).map((raw: unknown) =>
-        GerichtSchema.parse(raw),
+      mengeProGericht: (data?.gericht ?? []).map((raw: unknown) =>
+        GerichtArraySchema.parse(raw),
       ),
-      lebensmittelProGericht: (data?.lebensmittel ?? []).map((raw: unknown) =>
-        LebensmittelProGerichtArraySchema.parse(raw),
+      mengeProLebensmittel: (data?.lebensmittel ?? []).map((raw: unknown) =>
+        LebensmittelArraySchema.parse(raw),
       ),
       createdAt: (data.createdAt as Timestamp)?.toDate() ?? new Date(0),
       updatedAt: (data.updatedAt as Timestamp)?.toDate() ?? new Date(0),
@@ -69,7 +69,7 @@ export async function createMahlzeit(input: NewMahlzeit): Promise<Mahlzeit> {
   return snap.data()!;
 }
 
-export async function upsertPost(
+export async function upsertMahlzeit(
   id: string,
   input: NewMahlzeit | UpdateMahlzeit,
 ): Promise<void> {
@@ -81,13 +81,13 @@ export async function upsertPost(
   await setDoc(ref, payload, { merge: true });
 }
 
-export async function getPost(id: string): Promise<Mahlzeit | null> {
+export async function getMahlzeit(id: string): Promise<Mahlzeit | null> {
   const ref = doc(mahlzeit, id);
   const snap = await getDoc(ref);
   return snap.exists() ? snap.data()! : null;
 }
 
-export async function updatePost(
+export async function updateMahlzeit(
   id: string,
   patch: UpdateMahlzeit,
 ): Promise<void> {

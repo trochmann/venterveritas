@@ -24,7 +24,7 @@ export const GerichtSchema = z.object({
 });
 
 export type Gericht = z.infer<typeof GerichtSchema>;
-
+export const GerichtArraySchema = z.array(GerichtSchema).default([]);
 export const NewGerichtSchema = GerichtSchema.omit({
   id: true,
   createdAt: true,

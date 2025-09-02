@@ -17,6 +17,7 @@ export const LebensmittelSchema = z.object({
 });
 
 export type Lebensmittel = z.infer<typeof LebensmittelSchema>;
+export const LebensmittelArraySchema = z.array(LebensmittelSchema).default([]);
 
 export const NewLebensmittelSchema = LebensmittelSchema.omit({
   id: true,
