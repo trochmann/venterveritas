@@ -3,7 +3,7 @@ import { z } from "zod";
 export const LebensmittelProGerichtSchema = z.object({
   id: z.string(),
   lebensmittelId: z.string(),
-  gerichtId: z.string(),
+  // gerichtId: z.string(),
   menge: z.number().default(0),
 });
 

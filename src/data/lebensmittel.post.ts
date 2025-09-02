@@ -7,6 +7,9 @@ import {
   updateDoc,
   serverTimestamp,
   FirestoreDataConverter,
+  query,
+  orderBy,
+  getDocs,
 } from "firebase/firestore";
 import { db } from "@/lib/firebase/client";
 import {
@@ -91,4 +94,10 @@ export async function getPost(id: string): Promise<Lebensmittel | null> {
 export async function updatePost(id: string, patch: UpdateLebensmittel): Promise<void> {
   const ref = doc(lebensmittel, id);
   await updateDoc(ref, { ...patch, updatedAt: serverTimestamp() });
+}
+
+export async function listLebensmittel(): Promise<Lebensmittel[]> {
+  const q = query(lebensmittel, orderBy("name", "asc"));
+  const snap = await getDocs(q);
+  return snap.docs.map((d) => d.data());
 }

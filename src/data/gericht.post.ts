@@ -52,7 +52,7 @@ const GerichtConverter: FirestoreDataConverter<Gericht> = {
 
 const gericht = gerichtCol.withConverter(GerichtConverter);
 
-export async function createLebensmittel(input: NewGericht): Promise<Gericht> {
+export async function createGericht(input: NewGericht): Promise<Gericht> {
   const now = new Date();
   const docRef = await addDoc(gericht, {
     ...input,
