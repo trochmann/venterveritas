@@ -18,7 +18,6 @@ export async function GET() {
 }
 
 export async function POST(req: Request) {
-    console.log(req, "POST /api/lebensmittel");
   try {
     const body = await req.json();
     const parsed = NewLebensmittelSchema.safeParse(body);

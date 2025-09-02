@@ -21,7 +21,7 @@ import { LebensmittelProGerichtArraySchema } from "@/domain/lebensmittelProGeric
 
 const gerichtCol = collection(db, "gerichte");
 
-const GerichtConverter: FirestoreDataConverter<Gericht> = {
+export const GerichtConverter: FirestoreDataConverter<Gericht> = {
   toFirestore(gericht: Gericht) {
     return {
       id: gericht.id,
@@ -64,7 +64,7 @@ export async function createGericht(input: NewGericht): Promise<Gericht> {
   return snap.data()!;
 }
 
-export async function upsertPost(
+export async function upsertGericht(
   id: string,
   input: NewGericht | UpdateGericht,
 ): Promise<void> {
@@ -76,13 +76,13 @@ export async function upsertPost(
   await setDoc(ref, payload, { merge: true });
 }
 
-export async function getPost(id: string): Promise<Gericht | null> {
+export async function getGericht(id: string): Promise<Gericht | null> {
   const ref = doc(gericht, id);
   const snap = await getDoc(ref);
   return snap.exists() ? snap.data()! : null;
 }
 
-export async function updatePost(
+export async function updateGericht(
   id: string,
   patch: UpdateGericht,
 ): Promise<void> {

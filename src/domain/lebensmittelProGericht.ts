@@ -1,4 +1,5 @@
 import { z } from "zod";
+import { LebensmittelSchema } from "./lebensmittel";
 
 export const LebensmittelProGerichtSchema = z.object({
   id: z.string(),
@@ -10,3 +11,9 @@ export const LebensmittelProGerichtSchema = z.object({
 export type LebensmittelProGericht = z.infer<typeof LebensmittelProGerichtSchema>;
 
 export const LebensmittelProGerichtArraySchema = z.array(LebensmittelProGerichtSchema).default([]);
+
+export const ZutatOutSchema = LebensmittelProGerichtSchema.extend({
+  lebensmittel: LebensmittelSchema,
+});
+
+export type ZutatOut = z.infer<typeof ZutatOutSchema>;

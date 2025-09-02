@@ -23,7 +23,7 @@ import { WithFieldValue } from "firebase-admin/firestore";
 
 const lebensmittelCol = collection(db, "lebensmittel");
 
-const LebensmittelConverter: FirestoreDataConverter<Lebensmittel> = {
+export const LebensmittelConverter: FirestoreDataConverter<Lebensmittel> = {
   toFirestore(lebensmittel: Lebensmittel) {
     return {
       id: lebensmittel.id,

@@ -27,10 +27,10 @@ const MahlzeitConverter: FirestoreDataConverter<Mahlzeit> = {
     return {
       id: mahlzeit.id,
       tageszeit: mahlzeit.tageszeit,
-      gericht: (mahlzeit.gericht ?? []).map((item) =>
+      gericht: (mahlzeit.gericht ?? []).map((item: unknown) =>
         GerichtSchema.parse(item),
       ),
-      lebensmittelProGericht: (mahlzeit.lebensmittel ?? []).map((item) =>
+      lebensmittelProGericht: (mahlzeit.lebensmittel ?? []).map((item: unknown) =>
         LebensmittelProGerichtArraySchema.parse(item),
       ),
       createdAt: Timestamp.fromDate(mahlzeit.createdAt),
