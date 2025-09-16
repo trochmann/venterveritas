@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { listMahlzeit, listMahlzeitExpanded } from "@/data/mahlzeit.post";
+import { listMahlzeit } from "@/data/mahlzeit.post";
 import { Mahlzeit, TAGESZEIT } from "@/domain/mahlzeit";
 
 // function serializeMahlzeit(m: Mahlzeit) {
@@ -14,7 +14,7 @@ import { Mahlzeit, TAGESZEIT } from "@/domain/mahlzeit";
 
 export async function GET() {
   try {
-    const meals = await listMahlzeitExpanded();
+    const meals = await listMahlzeit();
 
     const byTageszeit: Record<string, number> = {};
     for (const tz of TAGESZEIT) byTageszeit[tz] = 0;
