@@ -14,4 +14,4 @@ export async function GET(_req: NextRequest, { params }: { params: Promise<{ id:
     const message = e instanceof Error ? e.message : "Unbekannter Fehler";
     return NextResponse.json({ error: message }, { status: 500 });
   }
-}
+} 
