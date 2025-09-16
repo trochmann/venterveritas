@@ -1,17 +1,12 @@
 import { clsx, type ClassValue } from "clsx";
-import { Timestamp } from "firebase/firestore";
 import { twMerge } from "tailwind-merge";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-export function toDateLike(val: unknown): Date {
-  if (val instanceof Timestamp) return val.toDate();
-  if (val instanceof Date) return val;
-  if (typeof val === "number" || typeof val === "string") {
-    const d = new Date(val);
-    if (!Number.isNaN(d.getTime())) return d;
-  }
-  return new Date(0);
+export async function fetchJSON<T>(url: string, init?: RequestInit): Promise<T> {
+  const res = await fetch(url, init);
+  if (!res.ok) throw new Error(await res.text());
+  return res.json();
 }

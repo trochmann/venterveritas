@@ -39,6 +39,13 @@ export default function AppShell({ children, logo }: AppShellProps) {
       >
         <User className="h-5 w-5" /> <span>Gerichte</span>
       </Link>
+      <Link
+        href="/mahlzeiten"
+        onClick={handleNav}
+        className="flex items-center gap-2 rounded px-3 py-2 hover:bg-muted"
+      >
+        <User className="h-5 w-5" /> <span>Mahlzeiten</span>
+      </Link>
     </nav>
   );
 

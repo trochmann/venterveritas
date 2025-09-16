@@ -8,6 +8,7 @@ import { Alert, AlertDescription, AlertTitle } from "@/components/ui/alert";
 import { Loader2, Edit, Copy, Printer, Trash2, RefreshCw } from "lucide-react";
 import { motion } from "framer-motion";
 import { Lebensmittel } from "@/domain/lebensmittel";
+import { fetchJSON } from "@/lib/utils";
 
 type ZutatenOut = {
   id: string;
@@ -38,13 +39,6 @@ type GerichtDetail = {
   updatedAt: string | null;
   lebensmittelExpanded?: LebensmittelMini[];
 };
-
-// kleines Fetch-Helferlein
-async function fetchJSON<T>(url: string, init?: RequestInit): Promise<T> {
-  const res = await fetch(url, init);
-  if (!res.ok) throw new Error(await res.text());
-  return res.json();
-}
 
 function fmt(dateIso: string | null) {
   if (!dateIso) return "–";
@@ -211,7 +205,8 @@ export default function GerichtDetailPage() {
                           </tr>
                         </thead>
                         <tbody>
-                          {data.lebensmittelProGericht.map((z) => {                            
+                          {data.lebensmittelProGericht.map((z) => {      
+                            console.log("z",z);                      
                             return (
                               <tr key={z.id} className="border-t">
                                 <td className="px-3 py-2">{z.lebensmittel.name + " " + z.lebensmittel.zustand}</td>                                

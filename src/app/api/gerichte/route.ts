@@ -1,11 +1,10 @@
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
-import { addDoc, collection, doc, serverTimestamp, writeBatch } from "firebase/firestore";
-import { db } from "@/lib/firebase/client";
 import { z } from "zod";
-import { Tageszeit } from "@/domain/gericht";
+import { Gericht, Tageszeit } from "@/domain/gericht";
 import { LebensmittelProGerichtSchema } from "@/domain/lebensmittelProGericht";
+import { createGericht, listPlainGerichte } from "@/data/gericht.post";
 
 const LebensmittelProGerichtInputSchema = LebensmittelProGerichtSchema.pick({
   lebensmittelId: true,
@@ -19,37 +18,27 @@ const CreateGerichtInputSchema = z.object({
   lebensmittelProGericht: z.array(LebensmittelProGerichtInputSchema).min(1),
 });
 
-export async function POST(req: Request) {    
+export async function POST(req: Request) {
   const body = await req.json();
   const parsed = CreateGerichtInputSchema.safeParse(body);
   if (!parsed.success) {
-    return NextResponse.json({ error: "Validierung fehlgeschlagen", issues: parsed.error.flatten() }, { status: 400 });
+    return NextResponse.json(
+      { error: "Validierung fehlgeschlagen", issues: parsed.error.flatten() },
+      { status: 400 },
+    );
   }
 
-  const { name, tageszeit, beschreibung, lebensmittelProGericht } = parsed.data;
-  const gerichtRef = await addDoc(collection(db, "gerichte"), {
-    name,
-    tageszeit,
-    beschreibung: beschreibung ?? "",
-    createdAt: serverTimestamp(),
-    updatedAt: serverTimestamp(),
-  });
-  const gerichtId = gerichtRef.id;
-  const relCol = collection(db, "lebensmittelProGericht");
-  const batch = writeBatch(db);
+  createGericht(parsed.data as Gericht);
 
-  for (const z of lebensmittelProGericht) {
-    const relRef = doc(relCol); 
-    batch.set(relRef, {
-      id: relRef.id,
-      gerichtId,                
-      lebensmittelId: z.lebensmittelId,
-      menge: z.menge,
-      createdAt: serverTimestamp(),
-      updatedAt: serverTimestamp(),
-    });
+  return NextResponse.json({ id: "asd" }, { status: 201 });
+}
+
+export async function GET() {
+  try {
+    const gerichte = await listPlainGerichte();
+    return NextResponse.json(gerichte);
+  } catch (e: unknown) {
+    const message = e instanceof Error ? e.message : "Unbekannter Fehler";
+    return NextResponse.json({ error: message }, { status: 500 });
   }
-  await batch.commit();
-
-  return NextResponse.json({ id: gerichtId }, { status: 201 });
 }

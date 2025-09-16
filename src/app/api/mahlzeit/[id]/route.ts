@@ -2,12 +2,12 @@ export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
 import { NextResponse } from "next/server";
-import { getGericht } from "@/data/gericht.post";
+import { getMahlzeit } from "@/data/mahlzeit.post";
 
 export async function GET(_req: Request, ctx: { params: { id: string } }) {
   try {
     const { id } = ctx.params;
-    const gericht = await getGericht(id);
+    const gericht = await getMahlzeit(id);
 
     return NextResponse.json(gericht);
   } catch (e: unknown) {

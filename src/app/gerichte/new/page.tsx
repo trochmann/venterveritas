@@ -20,7 +20,6 @@ import { motion } from "framer-motion";
 import { type Lebensmittel } from "@/domain/lebensmittel";
 import { type LebensmittelProGericht } from "@/domain/lebensmittelProGericht";
 import {
-//   NewGericht,
   Tageszeit,
   type Tageszeit as TageszeitType,
 } from "@/domain/gericht";

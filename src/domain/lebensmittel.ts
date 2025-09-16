@@ -3,17 +3,17 @@ import { z } from "zod";
 export const LebensmittelSchema = z.object({
   id: z.string(),
   name: z.string().min(1, "Name is required"),
-  kcal: z.number().default(0),
-  kh: z.number().default(0),
-  zucker: z.number().default(0),
-  fett: z.number().default(0),
-  eiweiss: z.number().default(0),
-  zustand: z.string(),
-  anbau: z.string(),
-  empfehlung: z.string(),
-  notiz: z.string(),
-  createdAt: z.date(),
-  updatedAt: z.date(),
+  kcal: z.coerce.number().default(0),
+  kh: z.coerce.number().default(0),
+  zucker: z.coerce.number().default(0),
+  fett: z.coerce.number().default(0),
+  eiweiss: z.coerce.number().default(0),
+  zustand: z.string().nullable().default(""),
+  anbau: z.string().nullable().default(""),
+  empfehlung: z.string().nullable().default(""),
+  notiz: z.string().nullable().default(""),
+  createdAt: z.coerce.date().nullable().optional(),
+  updatedAt: z.coerce.date().nullable().optional(),
 });
 
 export type Lebensmittel = z.infer<typeof LebensmittelSchema>;
