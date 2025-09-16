@@ -2,15 +2,15 @@ import { NextResponse } from "next/server";
 import { listMahlzeit, listMahlzeitExpanded } from "@/data/mahlzeit.post";
 import { Mahlzeit, TAGESZEIT } from "@/domain/mahlzeit";
 
-function serializeMahlzeit(m: Mahlzeit) {
-  return {
-    ...m,
-    createdAt:
-      m.createdAt instanceof Date ? m.createdAt.toISOString() : m.createdAt,
-    updatedAt:
-      m.updatedAt instanceof Date ? m.updatedAt.toISOString() : m.updatedAt,
-  };
-}
+// function serializeMahlzeit(m: Mahlzeit) {
+//   return {
+//     ...m,
+//     createdAt:
+//       m.createdAt instanceof Date ? m.createdAt.toISOString() : m.createdAt,
+//     updatedAt:
+//       m.updatedAt instanceof Date ? m.updatedAt.toISOString() : m.updatedAt,
+//   };
+// }
 
 export async function GET() {
   try {

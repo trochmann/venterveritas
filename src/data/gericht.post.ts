@@ -1,6 +1,7 @@
 import {
   Gericht,
   GerichtArraySchema,
+  GerichtOut,
   GerichtOutSchema,
   NewGericht,
 } from "@/domain/gericht";
@@ -32,7 +33,7 @@ export async function createGericht(input: NewGericht): Promise<Gericht> {
 //   await setDoc(ref, payload, { merge: true });
 // }
 
-export async function getGericht(id: string): Promise<Gericht | null> {
+export async function getGericht(id: string): Promise<GerichtOut | null> {
   const rows = await sql /* sql */ `
   SELECT
     g."id",
@@ -111,15 +112,15 @@ export async function listPlainGerichte(): Promise<Gericht[]> {
   return parsed.data;
 }
 
-export async function getGerichteByIds(ids: string[]) {
-  const unique = [...new Set(ids)].filter(Boolean);
-  const col = collection(db, "gerichte").withConverter(GerichtConverter);
-  const map = new Map<string, Gericht>();
+// export async function getGerichteByIds(ids: string[]) {
+//   const unique = [...new Set(ids)].filter(Boolean);
+//   const col = collection(db, "gerichte").withConverter(GerichtConverter);
+//   const map = new Map<string, Gericht>();
 
-  for (const batch of chunk(unique, 30)) {
-    const snap = await getDocs(query(col, where(documentId(), "in", batch)));
-    snap.forEach((d) => map.set(d.id, { ...d.data() }));
-  }
-  return map;
-}
+//   for (const batch of chunk(unique, 30)) {
+//     const snap = await getDocs(query(col, where(documentId(), "in", batch)));
+//     snap.forEach((d) => map.set(d.id, { ...d.data() }));
+//   }
+//   return map;
+// }
 

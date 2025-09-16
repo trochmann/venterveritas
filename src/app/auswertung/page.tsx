@@ -20,12 +20,9 @@ export default function Page() {
     setError(null);
     try {
       const res = await fetch("/api/auswertung", { cache: "no-store" });
-      console.log(res);
       if (!res.ok) throw new Error(await res.text());
       const json: Mahlzeit[] = await res.json();
-      console.log("json", json);
       setData(json);
-      console.log("data", data);
     } catch (err) {
       setError(String((err as Error)?.message ?? err));
     } finally {

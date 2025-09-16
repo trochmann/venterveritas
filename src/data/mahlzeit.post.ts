@@ -9,7 +9,7 @@ import {
   NewMahlzeit,
 } from "@/domain/mahlzeit";
 import { MengeProGericht, MengeProGerichtSchema } from "@/domain/mengeProGericht";
-import { getGerichteByIds } from "./gericht.post";
+// import { getGerichteByIds } from "./gericht.post";
 import { neon } from "@neondatabase/serverless";
 
 const sql = neon(process.env.DATABASE_URL!);
@@ -138,39 +138,39 @@ export async function listMahlzeit(): Promise<MahlzeitOutSummed[]> {
   return parsed.data;
 }
 
-export async function listMahlzeitExpanded(): Promise<MahlzeitOut[]> {
-  const q = query(mahlzeit, orderBy("createdAt", "asc"));
-  const snap = await getDocs(q);
-  const meals = snap.docs.map((d) => d.data());
+// export async function listMahlzeitExpanded(): Promise<MahlzeitOut[]> {
+//   const q = query(mahlzeit, orderBy("createdAt", "asc"));
+//   const snap = await getDocs(q);
+//   const meals = snap.docs.map((d) => d.data());
 
-  const allIds = meals.flatMap((m) => m.mengeProGericht?.map((x) => x.gerichtId) ?? []);
-  const gerichteMap = await getGerichteByIds(allIds);
+//   const allIds = meals.flatMap((m) => m.mengeProGericht?.map((x) => x.gerichtId) ?? []);
+//   const gerichteMap = await getGerichteByIds(allIds);
 
-  const expanded = meals.map((m) => ({
-    ...m,
-    mengeProGericht: m.mengeProGericht.map((link) => ({
-      ...link,
-      gericht: gerichteMap.get(link.gerichtId) ?? null,
-    })),
-  }));
+//   const expanded = meals.map((m) => ({
+//     ...m,
+//     mengeProGericht: m.mengeProGericht.map((link) => ({
+//       ...link,
+//       gericht: gerichteMap.get(link.gerichtId) ?? null,
+//     })),
+//   }));
 
-  return expanded.map((m) => MahlzeitOutSchema.parse(m));
-}
+//   return expanded.map((m) => MahlzeitOutSchema.parse(m));
+// }
 
-export async function getMahlzeitExpanded(id: string): Promise<MahlzeitOut | null> {
-  const m = await getMahlzeit(id);
-  if (!m) return null;
+// export async function getMahlzeitExpanded(id: string): Promise<MahlzeitOut | null> {
+//   const m = await getMahlzeit(id);
+//   if (!m) return null;
 
-  const ids = m.mengeProGericht.map((x) => x.gerichtId);
-  const gerichteMap = await getGerichteByIds(ids);
+//   const ids = m.mengeProGericht.map((x) => x.gerichtId);
+//   const gerichteMap = await getGerichteByIds(ids);
 
-  const expanded = {
-    ...m,
-    mengeProGericht: m.mengeProGericht.map((link) => ({
-      ...link,
-      gericht: gerichteMap.get(link.gerichtId) ?? null,
-    })),
-  };
+//   const expanded = {
+//     ...m,
+//     mengeProGericht: m.mengeProGericht.map((link) => ({
+//       ...link,
+//       gericht: gerichteMap.get(link.gerichtId) ?? null,
+//     })),
+//   };
 
-  return MahlzeitOutSchema.parse(expanded);
-}
+//   return MahlzeitOutSchema.parse(expanded);
+// }
