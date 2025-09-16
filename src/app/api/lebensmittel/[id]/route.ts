@@ -1,15 +1,12 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { z } from "zod";
 import { deleteLebensmittel } from "@/data/lebensmittel.post";
 
 const IdSchema = z.string().uuid();
 
-export async function DELETE(
-  _req: Request,
-  { params }: { params: { id: string } },
-) {
+export async function DELETE(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const id = IdSchema.parse(params.id);
+    const { id } = await params; 
     await deleteLebensmittel(id);
     NextResponse.json({ message: "Deleted" }, { status: 204 });
   } catch (e: unknown) {

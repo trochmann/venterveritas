@@ -1,12 +1,12 @@
 export const runtime = "nodejs";
 export const dynamic = "force-dynamic";
 
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { getMahlzeit } from "@/data/mahlzeit.post";
 
-export async function GET(_req: Request, ctx: { params: { id: string } }) {
+export async function GET(_req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   try {
-    const { id } = ctx.params;
+    const { id } = await params;
     const gericht = await getMahlzeit(id);
 
     return NextResponse.json(gericht);
