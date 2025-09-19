@@ -18,14 +18,21 @@ export default function Page() {
           <section>
             <h2 className="text-xl font-semibold mb-3">Heute</h2>
             <ul className="list-disc pl-5 space-y-2">
-              <li>Kurzer Überblick über den Tag …</li>
-              <li>Wichtige Termine/Erkenntnisse …</li>
-              <li>Notier hier frei, was relevant ist.</li>
+              <li>Knäckebrot gegenüber normalem vom Bäcker, oder generell welches Brot</li>
+              <li>Wieviel Obst am Tag?</li>
+              <li>Wie den Kalorienbedarf bei Gewichtsverlust berechnen?</li>
+              <li>Wieviel Zucker pro Tag minimum</li>
+              <li>evtl. über eigene Lebensmitteltabelle schauen?</li>
+              <li>Wieviel Kalorien unter Bedarf ist noch gesund?</li>
+              <li>Wenn Sport, wann am besten? Tageszeit, vor/nach Mahlzeit</li>
+              <li>Weißwein statt Bier?</li>
+              <li>Beim Braten, welches Öl am besten?</li>
+              <li>Wenn nachts Hunger, was dann snacken?</li>
             </ul>
           </section>
 
           {/* Abschnitt: Ideen */}
-          <section>
+          {/* <section>
             <h2 className="text-xl font-semibold mb-3">Ideen</h2>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div className="rounded-xl border border-slate-200 p-4 bg-white/60">
@@ -37,10 +44,10 @@ export default function Page() {
                 <p className="text-sm text-slate-600 leading-relaxed">Notizen, Links, Gedanken …</p>
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* Abschnitt: To‑dos (rein visuell) */}
-          <section>
+          {/* <section>
             <h2 className="text-xl font-semibold mb-3">To‑dos</h2>
             <ul className="space-y-2">
               <li className="flex items-start gap-3">
@@ -56,33 +63,33 @@ export default function Page() {
                 <span>Optional: Prioritäten, Deadlines etc. als Text.</span>
               </li>
             </ul>
-          </section>
+          </section> */}
 
           {/* Abschnitt: Leseliste */}
-          <section>
+          {/* <section>
             <h2 className="text-xl font-semibold mb-3">Leseliste</h2>
             <ol className="list-decimal pl-5 space-y-2">
               <li>Buchtitel oder Artikel – kurze Notiz …</li>
               <li>Linktitel – warum lesenswert …</li>
               <li>Paper/Thread – Kerngedanke …</li>
             </ol>
-          </section>
+          </section> */}
 
           {/* Abschnitt: Zitate/Code */}
-          <section>
+          {/* <section>
             <h2 className="text-xl font-semibold mb-3">Zitate & Schnipsel</h2>
             <figure className="rounded-xl border border-slate-200 bg-slate-50 p-4">
               <blockquote className="text-slate-700 italic leading-relaxed">„Kurzes Zitat oder Merksatz …“</blockquote>
               <figcaption className="mt-2 text-xs text-slate-500">— Quelle / Autor</figcaption>
             </figure>
             <pre className="mt-4 overflow-x-auto rounded-xl border border-slate-200 bg-slate-900 text-slate-100 p-4 text-sm"><code></code></pre>
-          </section>
+          </section> */}
         </article>
 
         {/* Footer Hinweis */}
-        <footer className="mt-12 text-center text-xs text-slate-400">
+        {/* <footer className="mt-12 text-center text-xs text-slate-400">
           <p>Nur Optik – keine Interaktionen oder Logik. ✨</p>
-        </footer>
+        </footer> */}
       </div>
     </main>
   );
